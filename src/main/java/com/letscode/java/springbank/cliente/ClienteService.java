@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -21,6 +23,11 @@ public class ClienteService {
     
     public List<ClienteDTO> listarTodos() {
         return ClienteConverter.parseClienteDtoList(this.repository.findAll());
+    }
+    
+    public List<ClienteDTO> listarPaginado(Pageable pageable) {
+        final Page<Cliente> clientesPage = this.repository.findAll(pageable);
+        return ClienteConverter.parseClienteDtoList(clientesPage.toList());
     }
     
     public ClienteDTO getPorId(Integer id) {

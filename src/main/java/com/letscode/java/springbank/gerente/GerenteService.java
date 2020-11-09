@@ -1,7 +1,6 @@
 package com.letscode.java.springbank.gerente;
 
 import com.letscode.java.springbank.cliente.ClienteDTO;
-import com.letscode.java.springbank.cliente.ClienteService;
 import com.letscode.java.springbank.exceptions.RecursoNaoEncontradoException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class GerenteService {
     
     private final GerenteRepository repository;
-    private final ClienteService clienteService;
+//    private final ClienteService clienteService;
     
     public List<GerenteDTO> listarTodos() {
         return GerenteConverter.parseGerenteDtoList(this.repository.findAll());
@@ -42,9 +41,9 @@ public class GerenteService {
 //        MensagemDireta.enviarMalaDireta(gerente, destinatarios, produto);
 //    }
     
-    public Double calcularTotalInvestimentosCarteiraClientes(Integer gerenteId) {
-        final GerenteDTO gerenteDTO = this.getPorId(gerenteId);
-        return clienteService.calcularTotalInvestimentosCarteiraClientes(gerenteDTO);
-    }
+//    public Double calcularTotalInvestimentosCarteiraClientes(Integer gerenteId) {
+//        final GerenteDTO gerenteDTO = this.getPorId(gerenteId);
+//        return clienteService.calcularTotalInvestimentosCarteiraClientes(gerenteDTO);
+//    }
     
 }

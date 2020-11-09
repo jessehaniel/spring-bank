@@ -2,11 +2,19 @@ plugins {
     id 'org.springframework.boot' version '2.3.5.RELEASE'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
+    id "com.github.johnrengelman.processes" version '0.5.0'
+    id "org.springdoc.openapi-gradle-plugin" version '1.3.0'
 }
 
 group = 'com.letscode.java'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
+
+processResources {
+    filesMatching('application.properties') {
+        expand(project.properties)
+    }
+}
 
 configurations {
     compileOnly {
@@ -32,6 +40,10 @@ dependencies {
 
     //Hibernate Beans Validation
     compile 'org.springframework.boot:spring-boot-starter-validation:2.3.4.RELEASE'
+
+    //Spring Open API 3.0
+    compile 'org.springdoc:springdoc-openapi-ui:1.4.8'
+    compile 'org.springdoc:springdoc-openapi-data-rest:1.4.8'
 }
 
 test {
