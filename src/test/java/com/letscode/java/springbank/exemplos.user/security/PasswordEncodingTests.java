@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
+@SuppressWarnings("deprecation")
 public class PasswordEncodingTests {
     
     static final String PASSWORD = "password";

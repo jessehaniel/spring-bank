@@ -37,7 +37,7 @@ public class ProdutoRestControllerIntegrationTest {
     void listarTodosProdutosHttpBasicAuthentication() throws Exception {
         mockMvc.perform(
             get("/produtos")
-            .with(httpBasic("letscode", "admin123")))
+                .with(httpBasic("letscode", "admin123")))
             .andExpect(status().isOk());
     }
     
@@ -45,7 +45,17 @@ public class ProdutoRestControllerIntegrationTest {
     void listarTodosProdutosInvalidAuthentication() throws Exception {
         mockMvc.perform(
             get("/produtos")
-            .with(httpBasic("letscode", "adminnnnnn")))
+                .with(httpBasic("letscode", "adminnnnnn")))
             .andExpect(status().isUnauthorized());
+    }
+    
+    @Test
+    void listarTodosHeaderAuthentication() throws Exception {
+        mockMvc.perform(
+            get("/produtos")
+                .header("Api-Key", "letscode")
+                .header("Api-Secret", "admin123")
+        )
+            .andExpect(status().isOk());
     }
 }
