@@ -44,6 +44,10 @@ dependencies {
     //Spring Open API 3.0
     compile 'org.springdoc:springdoc-openapi-ui:1.4.8'
     compile 'org.springdoc:springdoc-openapi-data-rest:1.4.8'
+
+    //Spring Security
+    compile 'org.springframework.boot:spring-boot-starter-security:2.3.5.RELEASE'
+    compile 'org.springframework.security:spring-security-test:5.4.1'
 }
 
 test {

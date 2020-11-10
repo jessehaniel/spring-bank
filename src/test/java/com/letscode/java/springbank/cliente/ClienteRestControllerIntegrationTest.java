@@ -2,6 +2,7 @@ package com.letscode.java.springbank.cliente;
 
 import static com.letscode.java.springbank.cliente.PageableAssert.assertThat;
 import static org.mockito.Mockito.verify;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -13,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(controllers = ClienteRestController.class)
@@ -24,6 +26,7 @@ class ClienteRestControllerIntegrationTest {
     @MockBean
     private ClienteService service;
     
+    @WithMockUser
     @Test
     void evaluatesPageableParameter() throws Exception {
         mockMvc.perform(
@@ -41,6 +44,13 @@ class ClienteRestControllerIntegrationTest {
         assertThat(pageable).hasPageSize(11);
         assertThat(pageable).hasSort("nome", Sort.Direction.ASC);
         assertThat(pageable).hasSort("id", Sort.Direction.DESC);
+    }
+    
+    @Test
+    void listarTodosWithHttpBasicAuthenticationUserGuest() throws Exception {
+        mockMvc.perform(get("/clientes")
+            .with(httpBasic("guest", "guest123")))
+            .andExpect(status().isOk());
     }
     
 }
