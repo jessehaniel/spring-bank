@@ -16,7 +16,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.jpa.domain.Specification;
 
 @DataJpaTest
-public class MyUserSpecificationTest {
+public class MyUserBeanSpecificationTest {
     
     @Autowired
     private MyUserRepository repository;
