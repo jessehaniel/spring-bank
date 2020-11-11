@@ -20,27 +20,27 @@ public class UserDataLoader implements CommandLineRunner {
     private final PasswordEncoder passwordEncoder;
 
     private void loadSecurityData() {
-        Authority admin = authorityRepository.save(Authority.builder().role("ADMIN").build());
-        Authority userRole = authorityRepository.save(Authority.builder().role("PROFESSOR").build());
-        Authority customer = authorityRepository.save(Authority.builder().role("ALUNO").build());
-        Authority guest = authorityRepository.save(Authority.builder().role("GUEST").build());
+        Authority gerenteGeral = authorityRepository.save(Authority.builder().role("ROLE_GERENTE_GERAL").build());
+        Authority gerente = authorityRepository.save(Authority.builder().role("ROLE_GERENTE").build());
+        Authority cliente = authorityRepository.save(Authority.builder().role("ROLE_CLIENTE").build());
+        Authority guest = authorityRepository.save(Authority.builder().role("ROLE_GUEST").build());
 
         userRepository.save(User.builder()
                 .username("letscode")
                 .password(passwordEncoder.encode("admin123"))
-                .authority(admin)
+                .authority(gerenteGeral)
                 .build());
 
         userRepository.save(User.builder()
                 .username("professor")
                 .password(passwordEncoder.encode("password"))
-                .authority(userRole)
+                .authority(gerente)
                 .build());
 
         userRepository.save(User.builder()
                 .username("aluno")
                 .password(passwordEncoder.encode("aluno"))
-                .authority(customer)
+                .authority(cliente)
                 .build());
         
         userRepository.save(User.builder()
