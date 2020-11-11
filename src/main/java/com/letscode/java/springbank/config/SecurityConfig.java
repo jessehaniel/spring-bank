@@ -4,14 +4,16 @@ import com.letscode.java.springbank.security.LetsCodePasswordEncoderFactories;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Profile("custom-security")
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Override
@@ -21,8 +23,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests(authorize -> {
                 authorize
                     .antMatchers("/h2-console/**").permitAll()
-                    .mvcMatchers("/users").permitAll();
-//                  .antMatchers("/**").permitAll()
+                    .mvcMatchers("/users", "/logging").permitAll()
+                    .mvcMatchers("/gerentes").hasRole("GERENTE_GERAL")
+                    .mvcMatchers("/clientes").hasAnyRole("GERENTE_GERAL", "GERENTE", "CLIENTE")
+                    .mvcMatchers("/produtos").hasAnyRole("GERENTE_GERAL", "GERENTE", "CLIENTE", "GUEST")
+                    .mvcMatchers("/clientes").permitAll();
             })
             .authorizeRequests()
             .anyRequest().authenticated()
@@ -39,40 +44,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return LetsCodePasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
     
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//            .withUser("letscode")
-//            .password("{bcrypt}$2a$10$HMiL2rbcF1HjFSMi4mydAu4Uw2T1LxuemoJk9gu.jEWWWsV/oHram")//admin123
-//            .roles("ADMIN")
-//            .and()
-//            .withUser("professor")//password
-//            .password("{sha256}5dc411bd616087d9427282f95abe9093529299cb179302becd31d59bacc8ca9585c1054ce8cf959c")
-//            .roles("PROFESSOR")
-//            .and()
-//            .withUser("aluno")
-//            .password("{ldap}{SSHA}ub2AAm+7NnZk+b657zQUn59OTy4GZdU6CgkpbA==")//aluno
-//            .roles("ALUNO")
-//            .and()
-//            .withUser("guest")
-//            .password("{noop}guest123")
-//            .roles("GUEST");
-//    }
-    
-    //    @Override
-//    @Bean
-//    protected UserDetailsService userDetailsService() {
-//        final UserDetails admin = UserBean.withDefaultPasswordEncoder()
-//            .username("admin")
-//            .password("admin123")
-//            .roles("ADMIN")
-//            .build();
-//        final UserDetails guest = UserBean.withDefaultPasswordEncoder()
-//            .username("guest")
-//            .password("guest123")
-//            .roles("GUEST")
-//            .build();
-//
-//        return new InMemoryUserDetailsManager(admin, guest);
-//    }
 }

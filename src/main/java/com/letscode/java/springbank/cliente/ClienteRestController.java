@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,17 +38,20 @@ public class ClienteRestController {
         return this.service.getPorId(id);
     }
     
+    @PreAuthorize("hasRole('GERENTE_GERAL')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ClienteDTO insert(@RequestBody ClienteDTO cliente) {
         return this.service.inserir(cliente);
     }
     
+    @PreAuthorize("hasRole('GERENTE_GERAL')")
     @PutMapping("/{id:[\\d]+}")
     public ClienteDTO update(@PathVariable Integer id, @RequestBody ClienteDTO cliente) {
         return this.service.atualizar(id, cliente);
     }
     
+    @PreAuthorize("hasRole('GERENTE_GERAL')")
     @DeleteMapping("/{id:[\\d]+}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id) {
