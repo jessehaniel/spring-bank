@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class User {
+public class UserBean { //renomeado por causa do conflito com security.userauthority.User
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

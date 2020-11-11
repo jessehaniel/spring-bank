@@ -6,7 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.letscode.java.springbank.exemplos.user.specification.MyUserRepository;
-import com.letscode.java.springbank.exemplos.user.validation.UserRepository;
+import com.letscode.java.springbank.exemplos.user.validation.UserBeanRepository;
 import java.nio.charset.StandardCharsets;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Test;
@@ -16,14 +16,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(controllers = UserRestController.class)
-class UserRestControllerIntegrationTest {
+@WebMvcTest(controllers = UserBeanRestController.class)
+class UserBeanRestControllerIntegrationTest { // renomeado por causa do conflito com security.userauthority.User
     
     @Autowired
     private MockMvc mockMvc;
     
     @MockBean
-    private UserRepository repository;
+    private UserBeanRepository repository;
     @MockBean
     private MyUserRepository myUserRepository;
     

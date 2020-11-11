@@ -3,8 +3,8 @@ package com.letscode.java.springbank.exemplos.user;
 import com.letscode.java.springbank.exemplos.user.specification.MyUser;
 import com.letscode.java.springbank.exemplos.user.specification.MyUserRepository;
 import com.letscode.java.springbank.exemplos.user.specification.UserSpecificationBuilder;
-import com.letscode.java.springbank.exemplos.user.validation.User;
-import com.letscode.java.springbank.exemplos.user.validation.UserRepository;
+import com.letscode.java.springbank.exemplos.user.validation.UserBean;
+import com.letscode.java.springbank.exemplos.user.validation.UserBeanRepository;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -28,15 +28,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-public class UserRestController {
+public class UserBeanRestController {
     
-    private final UserRepository repository;
+    private final UserBeanRepository repository;
     private final MyUserRepository myUserRepository;
     
     @PostMapping("/users")
-    ResponseEntity<String> addUser(@Valid @RequestBody User user) {
-        this.repository.save(user);
-        return ResponseEntity.ok("User is valid");
+    ResponseEntity<String> addUser(@Valid @RequestBody UserBean userBean) {
+        this.repository.save(userBean);
+        return ResponseEntity.ok("UserBean is valid");
     }
     
     @ResponseStatus(HttpStatus.BAD_REQUEST)
