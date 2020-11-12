@@ -45,7 +45,7 @@ class ClienteRestControllerIntegrationTest extends BaseIT {
     @Test
     void listarTodosWithHttpBasicAuthenticationUserGuest() throws Exception {
         mockMvc.perform(get("/clientes")
-            .with(httpBasic("professor", "password")))
+            .with(httpBasic("gerente", "password")))
             .andExpect(status().isOk());
     }
     

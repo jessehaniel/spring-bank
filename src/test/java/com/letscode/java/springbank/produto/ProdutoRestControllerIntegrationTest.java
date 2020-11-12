@@ -8,7 +8,6 @@ import com.letscode.java.springbank.BaseIT;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.test.context.support.WithMockUser;
 
 @SpringBootTest
 public class ProdutoRestControllerIntegrationTest extends BaseIT {
@@ -22,10 +21,11 @@ public class ProdutoRestControllerIntegrationTest extends BaseIT {
             .andExpect(status().isUnauthorized());
     }
     
-    @WithMockUser
     @Test
     void listarTodosProdutos() throws Exception {
-        mockMvc.perform(get("/produtos"))
+        mockMvc.perform(
+            get("/produtos")
+                .with(httpBasic("guest", "guest123")))
             .andExpect(status().isOk());
     }
     
@@ -33,7 +33,7 @@ public class ProdutoRestControllerIntegrationTest extends BaseIT {
     void listarTodosProdutosHttpBasicAuthentication() throws Exception {
         mockMvc.perform(
             get("/produtos")
-                .with(httpBasic("letscode", "admin123")))
+                .with(httpBasic("gerenteGeral", "admin123")))
             .andExpect(status().isOk());
     }
     
@@ -41,7 +41,7 @@ public class ProdutoRestControllerIntegrationTest extends BaseIT {
     void listarTodosProdutosInvalidAuthentication() throws Exception {
         mockMvc.perform(
             get("/produtos")
-                .with(httpBasic("letscode", "adminnnnnn")))
+                .with(httpBasic("gerenteGeral", "adminnnnnn")))
             .andExpect(status().isUnauthorized());
     }
 }

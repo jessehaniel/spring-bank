@@ -26,19 +26,19 @@ public class UserDataLoader implements CommandLineRunner {
         Authority guest = authorityRepository.save(Authority.builder().role("ROLE_GUEST").build());
 
         userRepository.save(User.builder()
-                .username("letscode")
+                .username("gerenteGeral")
                 .password(passwordEncoder.encode("admin123"))
                 .authority(gerenteGeral)
                 .build());
 
         userRepository.save(User.builder()
-                .username("professor")
+                .username("gerente")
                 .password(passwordEncoder.encode("password"))
                 .authority(gerente)
                 .build());
 
         userRepository.save(User.builder()
-                .username("aluno")
+                .username("cliente")
                 .password(passwordEncoder.encode("aluno"))
                 .authority(cliente)
                 .build());

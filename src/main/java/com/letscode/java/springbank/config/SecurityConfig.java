@@ -24,13 +24,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 authorize
                     .antMatchers("/h2-console/**").permitAll()
                     .mvcMatchers("/users", "/logging").permitAll()
+                    .mvcMatchers("/clientes/page").authenticated()
                     .mvcMatchers("/gerentes").hasRole("GERENTE_GERAL")
                     .mvcMatchers("/clientes").hasAnyRole("GERENTE_GERAL", "GERENTE", "CLIENTE")
-                    .mvcMatchers("/produtos").hasAnyRole("GERENTE_GERAL", "GERENTE", "CLIENTE", "GUEST")
-                    .mvcMatchers("/clientes").permitAll();
+                    .mvcMatchers("/produtos").hasAnyRole("GERENTE_GERAL", "GERENTE", "CLIENTE", "GUEST");
             })
             .authorizeRequests()
-            .anyRequest().authenticated()
+            .anyRequest().denyAll()
             .and()
             .formLogin().and()
             .httpBasic();
