@@ -12,6 +12,7 @@ public class LetsCodePasswordEncoderFactories {
         super();
     }
     
+    @SuppressWarnings("deprecation")
     public static PasswordEncoder createDelegatingPasswordEncoder() {
         String encodingId = "bcrypt";
         Map<String, PasswordEncoder> encoders = new HashMap<>();

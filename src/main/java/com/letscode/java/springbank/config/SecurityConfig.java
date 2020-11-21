@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests(authorize -> {
                 authorize
                     .antMatchers("/h2-console/**").permitAll()
-                    .mvcMatchers("/users", "/logging").permitAll()
+                    .mvcMatchers("/users", "/logging", "/env/**").permitAll()
                     .mvcMatchers("/clientes/page").authenticated()
                     .mvcMatchers("/gerentes").hasRole("GERENTE_GERAL")
                     .mvcMatchers("/clientes").hasAnyRole("GERENTE_GERAL", "GERENTE", "CLIENTE")
